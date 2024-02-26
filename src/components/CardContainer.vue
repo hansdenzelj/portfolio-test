@@ -12,7 +12,7 @@
     min-height: 600px;
     min-width: 600px;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 1em;
+    gap: 1.5em;
 }
 
 @media (max-width: 2000px) {

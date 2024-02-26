@@ -1,14 +1,16 @@
 <template>
     <div 
     class="Card" 
-    @click="showArticle = !showArticle"
+    @click=openArticle()
     @mouseenter="active = true" 
     @mouseleave="active = false"
     :style="{'background-color': theme.background, 'color': theme.foreground}">
-    <slot>
+    <slot class="Card--Title" name="title">
         Insert Content Here
     </slot>
-    <!-- <Article :trigger="showArticle"></Article> -->
+    <slot name="image">
+        Insert Image Here
+    </slot>
     </div>
 </template>
 
@@ -16,28 +18,35 @@
 .Card {
     min-width: 100px;
     padding: 1em;
-    border-radius: 0.25em;
+    border-radius: 0.75em;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    transition: border 200ms;
+    transition: transform 200ms;
     display: flex;
     flex-direction: column;
     font-size: clamp(1rem, 2.5vw, 2rem);
 }
 
+.Card--Title {
+    font-size: 2em;
+}
+
 .Card:hover {
-    border: 0.2em solid rgb(223, 223, 223)
+    /* border: 0.2em solid rgb(223, 223, 223) */
+    transform: scaleX(102%) scaleY(102%);
+}
+
+img {
+    align-self:flex-start;
 }
 
 </style>
 
 <script>
-import Article from './Article.vue'
 
 export default {
     components: {
-        Article,
     },
     props: {
         theme: {
@@ -51,17 +60,19 @@ export default {
     data() {
         return {
             active: false,
-            showArticle: false,
         }
     },
     emits: ['setColor', 'unsetColor'],
     methods: {
         emitSetBGColor() { //set background color
-            this.$emit('setColor', this.theme.background)
+            this.$emit('setColor', [this.theme.background, this.theme.foreground])
         },
         emitUnsetBGColor() {
             this.$emit('unsetColor')
-        }
+        },
+        openArticle(articleRef) {
+            console.log("Hello")
+        },
     },
     watch: {
         active(state) {
