@@ -21,16 +21,26 @@ export default {
       default_bgcolor: "#242424",
       bgcolor: "#242424",
       textcolor: "#FFFFFF",
+      lastbgcolor: "",
+      lasttextcolor: "",
+      project_active: false,
+      project_id: 0
     };
   },
   methods: {
     setTheme(color) {
       this.bgcolor = changeColor(color[0], -20);
       this.textcolor = color[1];
+      this.lastbgcolor = changeColor(color[0], -20);
+      this.lasttextcolor = color[1];
     },
     unsetTheme() {
       this.bgcolor = this.default_bgcolor;
       this.textcolor = this.default_textcolor;
+    },
+    showProject(id) {
+      this.project_active = !this.project_active;
+      this.project_id = id
     },
   },
 };
@@ -61,7 +71,12 @@ function changeColor(color, amount) {
     class="app-wrapper"
     :style="{ 'background-color': this.bgcolor, color: this.textcolor }"
   >
-  <ProjectView />
+    <ProjectView
+      :active="this.project_active"
+      @close="this.project_active = false"
+      :theme="{background: this.lastbgcolor, foreground: this.lasttextcolor}"
+      :project_id=1
+    />
 
     <header>
       <Banner />
@@ -69,72 +84,66 @@ function changeColor(color, amount) {
 
     <main>
       <section class="section-project">
-        <h1>Projects [Solo & Group]</h1>
+        <h1>Some Projects</h1>
         <CardContainer>
           <Card
-            @setColor="(color) => setTheme(color)"
-            @unsetColor="unsetTheme()"
+            @setTheme="(color) => setTheme(color)"
+            @unsetTheme="unsetTheme()"
+            @clickEvent="showProject(1)"
             :theme="{
               foreground: 'black',
               background: '#ffe4e1',
             }"
+            image_src="./src/assets/project_1.png"
+            image_pos="center"
+            :project_id=1
           >
-            <template #title>Project</template>
-            <template #image><img src="./assets/project_1.png" /></template>
+            <template #title>Desert Ordering Site</template>
           </Card>
 
           <Card
-            @setColor="(color) => setTheme(color)"
-            @unsetColor="unsetTheme()"
+            @setTheme="(color) => setTheme(color)"
+            @unsetTheme="unsetTheme()"
+            @clickEvent="showProject(2)"
             :theme="{
               foreground: 'white',
               background: '#ec2c01',
             }"
+            image_src="./src/assets/project_2.png"
+            image_pos="center"
+            :project_id=2
           >
-            <template #title>Project</template>
-            <template #image>
-              <img
-                src="./assets/project_2.png"
-                width="70%"
-                style="align-self: center"
-              />
-            </template>
+            <template #title>Car Rental Site</template>
           </Card>
 
           <Card
-            @setColor="(color) => setTheme(color)"
-            @unsetColor="unsetTheme()"
+            @setTheme="(color) => setTheme(color)"
+            @unsetTheme="unsetTheme()"
+            @clickEvent="showProject(3)"
             :theme="{
               foreground: 'white',
               background: '#027898',
             }"
+            image_src="./src/assets/project_3.png"
+            image_pos="center"
+            :project_id=3
           >
-            <template #title>Project</template>
-            <template #image>
-              <img
-                src="./assets/project_3.png"
-                width="70%"
-                style="align-self: flex-start"
-              />
-            </template>
+            <template #title>Task Manager</template>
           </Card>
 
           <Card
-            @setColor="(color) => setTheme(color)"
-            @unsetColor="unsetTheme()"
+            @setTheme="(color) => setTheme(color)"
+            @unsetTheme="unsetTheme()"
+            @clickEvent="showProject(4)"
             :theme="{
               foreground: 'black',
               background: '#e6e4e0',
             }"
+            image_src="./src/assets/project_4.png"
+            image_pos="center"
+            :project_id=4
           >
-            <template #title>Project</template>
-            <template #image>
-              <img
-                src="./assets/project_4.png"
-                width="100%"
-                style="align-self: flex-start"
-              />
-            </template>
+            <template #title>CV Yoga App</template>
           </Card>
         </CardContainer>
       </section>
@@ -160,7 +169,15 @@ span {
   font-size: clamp(1rem, 2.5vw, 2rem);
 }
 
+footer {
+  margin-top: auto;
+  align-self: flex-end;
+  width: 100%;
+}
+
 .app-wrapper {
+  display: flex;
+  flex-direction: column;
   transition: background-color 250ms;
   min-height: 100vh;
 }

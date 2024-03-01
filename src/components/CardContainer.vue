@@ -9,23 +9,26 @@
 <style scoped>
 .Container {
     display: grid;
-    min-height: 600px;
-    min-width: 600px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(1, 1fr);
     gap: 1.5em;
+    margin: 0 2em 0 2em;
 }
 
-@media (max-width: 2000px) {
+@media (min-width: 768px) {
     .Container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 650px) {
+@media (min-width: 1536px) {
     .Container {
-        grid-template-columns: 1fr;
-        min-width: 300px;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
+@media (min-width: 1920px) {
+    .Container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
 </style>

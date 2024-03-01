@@ -10,6 +10,9 @@
         height: 100px;
         background-color: rgba(0, 0, 0, 0.2);
         padding: 1em;
+
+        position: sticky;
+        bottom: 0;
     }
 
     p {
