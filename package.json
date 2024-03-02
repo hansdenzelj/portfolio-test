@@ -1,12 +1,14 @@
 {
-  "name": "static-portfolio",
+  "name": "portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "vue": "^3.3.11"
@@ -14,6 +16,7 @@
   "devDependencies": {
     "@types/tinycolor2": "^1.4.6",
     "@vitejs/plugin-vue": "^4.5.2",
+    "gh-pages": "^6.1.1",
     "vite": "^5.0.8"
   }
 }
